@@ -15,3 +15,7 @@
 - 상품 수정(Update)
 - 상품 삭제(Delete)
 
+
+## 기술스택
+- Java17, Spring Boot, JPA, MySQL, Docker, Ngnix, Redis, AWS, Kafka
+
