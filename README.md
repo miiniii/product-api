@@ -17,5 +17,5 @@
 
 
 ## 기술스택
-- Java17, Spring Boot, JPA, MySQL, Docker, Ngnix, Redis, AWS, Kafka
+Java17, Spring Boot, JPA, MySQL, Docker, Ngnix, Redis, AWS, Kafka
 
