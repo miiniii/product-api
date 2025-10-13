@@ -1,0 +1,23 @@
+package com.flab.testrepojava.interceptor;
+
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponseWrapper;
+
+public class StatusCaptureWrapper extends HttpServletResponseWrapper {
+    private int httpStatus = SC_OK;
+
+    public StatusCaptureWrapper(HttpServletResponse response) {
+        super(response);
+    }
+
+    @Override
+    public void setStatus(int sc) {
+        super.setStatus(sc);
+        this.httpStatus = sc;
+    }
+
+    @Override
+    public int getStatus() {
+        return this.httpStatus;
+    }
+}

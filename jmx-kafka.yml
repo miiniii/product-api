@@ -1,0 +1,15 @@
+startDelaySeconds: 0
+hostPort: localhost:9999
+jmxUrl: service:jmx:rmi:///jndi/rmi://localhost:9999/jmxrmi
+username: ""
+password: ""
+lowercaseOutputName: true
+lowercaseOutputLabelNames: true
+
+rules:
+  - pattern: "kafka.server<type=(.+), name=(.+)><>(Count|Value)"
+    name: kafka_$1_$2
+    type: GAUGE
+    attrNameSnakeCase: true
+    labels:
+      component: "$1"

@@ -1,0 +1,42 @@
+# prometheus/prometheus.yml
+global:
+  scrape_interval: 5s  # 메트릭 수집 주기 (기본 15s → 5s로 변경)
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'nginx'
+    static_configs:
+#      - targets: ['nginx-exporter:9113']
+      - targets: ['15.164.49.80:9113']
+
+  - job_name: 'product-api'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+#      - targets: ['localhost:8080']
+#      - targets: ['product-api-1:8080']
+#      - targets: ['product-api-1:8080', 'product-api-2:8080']
+#      - targets: ['product-api-1:8080', 'product-api-2:8080', 'product-api-3:8080']
+#      - targets: ['43.203.182.53:8080']
+      - targets: ['54.180.132.216:8080', '43.200.5.74:8081', '43.202.45.4:8082']
+
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: [ 'cadvisor:8080' ]
+
+#  - job_name: 'redis'
+#    static_configs:
+#      - targets: [ 'localhost:9121' ]
+#      - targets: [ '13.125.249.38:9121' ]
+#      - targets: [ '43.203.182.53:9121' ]
+
+  - job_name: 'mysql'
+    static_configs:
+      - targets: ['3.39.190.122:9104']
+      #- targets: ['localhost:9104']
+
+  - job_name: 'kafka'
+    static_configs:
+      - targets: ['kafka-exporter:5556']

@@ -1,0 +1,105 @@
+version: "2.4"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "123123"
+      MYSQL_DATABASE: products
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    networks:
+      - product_network
+
+  product-api-1:
+    build:
+      context: .
+    container_name: product-api-1
+    ports:
+      - "8081:8080"
+    environment:
+      - INSTANCE_NAME=API-1
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/products
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=123123
+    networks:
+      - product_network
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  product-api-2:
+    build:
+      context: .
+    container_name: product-api-2
+    ports:
+      - "8082:8080"
+    environment:
+      - INSTANCE_NAME=API-2
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/products
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=123123
+    networks:
+      - product_network
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - product-api-1
+      - product-api-2
+    networks:
+      - product_network
+    cpus: 0.5          # CPU 0.5개 제한
+    mem_limit: 256m  # 메모리 256MB 제한
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3001:3000"
+    networks:
+      - product_network
+    depends_on:
+      - prometheus
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    networks:
+      - product_network
+
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    container_name: nginx-exporter
+    command:
+      - '--nginx.scrape-uri=http://nginx/stub_status'
+    ports:
+      - "9113:9113"
+    depends_on:
+      - nginx
+    networks:
+      - product_network
+
+networks:
+  product_network:
+    driver: bridge

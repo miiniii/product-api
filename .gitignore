@@ -1,0 +1,64 @@
+prometheus/data/
+
+# Java
+*.class
+
+# Compiled files
+target/
+build/
+
+# Gradle
+.gradle/
+!gradlew
+!gradlew.bat
+!gradle/
+!gradle/wrapper/
+!gradle/wrapper/gradle-wrapper.jar
+**/build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# VS Code (optional)
+.vscode/
+
+# OS 관련 파일
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+*.tmp
+*.swp
+
+# Lombok
+*.lombok.config
+
+# Environment files (optional)
+.env
+.env.*
+
+# H2 DB (optional, 로컬 파일 DB 사용 시)
+*.h2.db
+
+# 기타
+*.war
+*.zip
+
+
+# Prometheus 전체 폴더 무시하되 설정 파일은 포함
+prometheus/*
+!prometheus/prometheus.yml
+
+# 불필요한 문서
+HELP.md
+
+# Nginx 관련 설정
+nginx/
+
+product_dump.sql
+
