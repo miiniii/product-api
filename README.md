@@ -9,3 +9,9 @@
 # Architecture
 <img width="798" height="469" alt="image" src="https://github.com/user-attachments/assets/df38bdf1-39bc-4c47-b29b-6de21e50224c" />
 
+## 주요기능
+- 상품 등록(Create)
+- 상품 조회(Read)
+- 상품 수정(Update)
+- 상품 삭제(Delete)
+
