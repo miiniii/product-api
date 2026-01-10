@@ -43,6 +43,7 @@ Duration : 300(sec), Data : 30,000, **Vuser : 25**<br>
 | Nginx + 인스턴스 3개 | 31.2 | 762.66 | 20.0 | 45.5 | 0% | least_conn O
 
 ### least_conn 추가 
+Nginx + 인스턴스 2개 부하 테스트
 <img width="1000" height="244" alt="image" src="https://github.com/user-attachments/assets/48689f23-d603-432c-8486-3b056243dd2d" />
-Nginx + 인스턴스 2개 부하 테스트시, 에러율이 한 곳에서 치솟는 현상 발견
+에러율이 한 곳에서 치솟는 현상 발견
 
