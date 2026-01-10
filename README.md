@@ -53,6 +53,6 @@ Nginx + 인스턴스 2개 부하 테스트 - 에러율이 한 곳에서 치솟�
 | 적용 전 (least_conn ❌) | 적용 후 (least_conn ⭕) |
 |------------------------|------------------------|
 |<img width="1548" height="842" alt="image" src="https://github.com/user-attachments/assets/6de4d110-ceec-4f08-bf7d-3ebe60ffcfd7" />|<img width="1555" height="823" alt="image" src="https://github.com/user-attachments/assets/ca17df36-a566-4d2e-b87b-6e1e558ebdfb" />|
-|33:15부터 1.3초에 가까운 GC 발생 -> 에러 발생시점과 일치하다 판단<br> product-api-1(초록색)과 product-api-2(노란색) 그래프 차이 존재 → 부하 쏠림 예측|추가 후 2개의 그래프 비슷해짐 -> 이전보다 균등하게 분배되었다고 판단(y축 값도 작아짐)|
+|33:15부터 1.3초에 가까운 GC 발생 <br>-> 에러 발생시점과 일치하다 판단<br> product-api-1(초록색)과 product-api-2(노란색) 그래프 차이 존재<br> → 부하 쏠림 예측|추가 후 2개의 그래프 비슷해짐 <br>-> 이전보다 균등하게 분배되었다고 판단(y축 값도 작아짐)|
 |<img width="1588" height="826" alt="image" src="https://github.com/user-attachments/assets/89dc9ff9-ff93-4e54-8b5e-b36c92bc6ec3" />|<img width="1611" height="833" alt="image" src="https://github.com/user-attachments/assets/6e27c519-e411-47d1-8847-be755ce1e7a2" />|
-|주황색(product-api-2) 00:33 ~ 00:35 사이 Eden 공간이 급증 → GC 예측<br>파란색(product-api-1)에 비해 높은 것으로 보아 부하 쏠림 가능성 존재|파란색(product-api-1)의 변화폭 증가 → 부하가 이전보다 균등하게 배분된다고 판단|
+|주황색(product-api-2) 00:33 ~ 00:35 사이 Eden 공간이 급증<br> → GC 예측<br>파란색(product-api-1)에 비해 높은 것으로 보아 부하 쏠림 가능성 존재|파란색(product-api-1)의 변화폭 증가<br> → 부하가 이전보다 균등하게 배분된다고 판단|
