@@ -89,12 +89,13 @@ Duration : 300(sec), Data : 30,000, **Vuser : 75**, least_conn 추가<br>
 ```
 로컬 개발 환경에서 진행되어,
 테스트 진행 중 웹 브라우저 사용, 음악 재생 등 다른 프로세스의 리소스 사용이 일부 지표에 영향을 미쳤을 가능성 존재
+
 이러한 한계를 보완하기 위해,
 동일한 테스트 시나리오를 AWS EC2 기반 독립 환경에서 다시 수행하여 외부 요인의 영향을 최소화한 상태에서 성능을 재검증
 ```
 
 ### AWS(EC2, Vuser 증가 25 -> 50 -> 75)
-t2.micro
+t2.micro <br>
 ✔️Application Instance(1~3)   ✔️Ngnix   ✔️Ngrinder(controller, agent)   ✔️MySql <br>
 Duration : 300(sec), Data : 30,000, **Vuser : 25**<br>
 | 구성 환경 | TPS (평균) | 응답시간 평균 (ms) | 응답시간 최소 (ms) | 응답시간 최대 (ms) | 에러율 (%) |
