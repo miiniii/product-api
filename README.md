@@ -32,6 +32,8 @@ jakarta.servlet.ServletException: Handler dispatch failed: java.lang.OutOfMemory
 1. DB maximum pool size 10 -> 50 증가
 2. Vusers를 최대 75로 제한(최대치 이상으로 하면 OOM 발생)
 
+<br>
+
 ### Local(Vuser 증가 25 -> 50 -> 75)
 ✔️Application Instance(1~3)   ✔️Ngnix   ✔️Ngrinder(controller, agent)   ✔️MySql <br>
 <br>
@@ -41,7 +43,7 @@ Duration : 300(sec), Data : 30,000, **Vuser : 25**<br>
 | 단일 인스턴스 | 80.1 | 297.0 | 13.5 | 119.0 | 0% | |
 | Nginx + 인스턴스 2개 | 33.1 | 718.7 | 6.0 | 50.0 | 0.01% | least_conn X
 | Nginx + 인스턴스 3개 | 31.2 | 762.66 | 20.0 | 45.5 | 0% | least_conn O
-
+<br>
 ### least_conn 추가 
 Nginx + 인스턴스 2개 부하 테스트 - 에러율이 한 곳에서 치솟는 현상 발견
 <img width="1000" height="244" alt="image" src="https://github.com/user-attachments/assets/48689f23-d603-432c-8486-3b056243dd2d" />
