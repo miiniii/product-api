@@ -24,6 +24,7 @@ Java17, Spring Boot, JPA, MySQL, Docker, Ngnix, Redis, AWS, Kafka
 ## 분산 환경 성능 테스트 비교(상품 조회)
 <br>
 데이터 30,000개로 진행(DB maximum pool size = 10) -> OOM 발생(메모리 사용률 98%) -> 에러율 30% 이상
+
 ```
 2025-06-10T09:17:22.059Z ERROR 1 --- [test-repo-java] [io-8080-exec-45] o.a.c.c.C.[Tomcat].[localhost]: Exception Processing [ErrorPage[errorCode=0, location=/error]]
 jakarta.servlet.ServletException: Handler dispatch failed: java.lang.OutOfMemoryError: Java heap space at …
