@@ -35,6 +35,6 @@ jakarta.servlet.ServletException: Handler dispatch failed: java.lang.OutOfMemory
 ### Local(Vuser 증가 25 -> 50 -> 75)
 ✔️Application Instance(1~3)   ✔️Ngnix   ✔️Ngrinder(controller, agent)   ✔️MySql <br>
 <br>
-Duration : 300(sec), Data : 30,000 **Vuser : 25**<br>
+Duration : 300(sec), Data : 30,000, **Vuser : 25**<br>
 
 
