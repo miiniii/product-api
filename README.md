@@ -52,6 +52,4 @@ Nginx + 인스턴스 2개 부하 테스트 - 에러율이 한 곳에서 치솟�
 
 | 적용 전 (least_conn ❌) | 적용 후 (least_conn ⭕) |
 |------------------------|------------------------|
-| <img width="1548" height="842" alt="image" src="https://github.com/user-attachments/assets/6de4d110-ceec-4f08-bf7d-3ebe60ffcfd7" />
-| <img width="1555" height="823" alt="image" src="https://github.com/user-attachments/assets/ca17df36-a566-4d2e-b87b-6e1e558ebdfb" />
- |
+| <img width="1548" height="842" alt="image" src="https://github.com/user-attachments/assets/6de4d110-ceec-4f08-bf7d-3ebe60ffcfd7" />| <img width="1555" height="823" alt="image" src="https://github.com/user-attachments/assets/ca17df36-a566-4d2e-b87b-6e1e558ebdfb" />|
