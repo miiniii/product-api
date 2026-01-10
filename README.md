@@ -52,7 +52,4 @@ Nginx + 인스턴스 2개 부하 테스트 - 에러율이 한 곳에서 치솟�
 
 | 적용 전 (least_conn ❌) | 적용 후 (least_conn ⭕) |
 |------------------------|------------------------|
-| <img width="1548" height="842" alt="image" src="https://github.com/user-attachments/assets/6de4d110-ceec-4f08-bf7d-3ebe60ffcfd7" /><br><img width="1588" height="826" alt="image" src="https://github.com/user-attachments/assets/89dc9ff9-ff93-4e54-8b5e-b36c92bc6ec3" />
-| <img width="1555" height="823" alt="image" src="https://github.com/user-attachments/assets/ca17df36-a566-4d2e-b87b-6e1e558ebdfb" /><br>|<img width="1611" height="833" alt="image" src="https://github.com/user-attachments/assets/3eb782ef-ed24-40d8-963f-bb8b9e7960e0" />
-
-|33:15부터 1.3초에 가까운 GC 발생 -> 에러 발생시점과 일치하다 판단| 추가 후 2개의 그래프 비슷해짐 -> 이전보다 균등하게 분배되었다고 판단(y축 값도 작아짐)|
+| <img width="1548" height="842" alt="image" src="https://github.com/user-attachments/assets/6de4d110-ceec-4f08-bf7d-3ebe60ffcfd7" /><br><img width="1588" height="826" alt="image" src="https://github.com/user-attachments/assets/89dc9ff9-ff93-4e54-8b5e-b36c92bc6ec3" />| <img width="1555" height="823" alt="image" src="https://github.com/user-attachments/assets/ca17df36-a566-4d2e-b87b-6e1e558ebdfb" /><br>|<img width="1611" height="833" alt="image" src="https://github.com/user-attachments/assets/3eb782ef-ed24-40d8-963f-bb8b9e7960e0" />|33:15부터 1.3초에 가까운 GC 발생 -> 에러 발생시점과 일치하다 판단| 추가 후 2개의 그래프 비슷해짐 -> 이전보다 균등하게 분배되었다고 판단(y축 값도 작아짐)|
