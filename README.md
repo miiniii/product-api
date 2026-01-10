@@ -32,8 +32,8 @@ jakarta.servlet.ServletException: Handler dispatch failed: java.lang.OutOfMemory
 1. DB maximum pool size 10 -> 50 증가
 2. Vusers를 최대 75로 제한(최대치 이상으로 하면 OOM 발생)
 
-##Local(Vuser 증가 25 -> 50 -> 75)
-Duration : 300(sec), Data : 30,000 **Vuser : 25**
+### Local(Vuser 증가 25 -> 50 -> 75)
+Duration : 300(sec), Data : 30,000 **Vuser : 25**<br>
 Application Instance(1~3)   Ngnix   Ngrinder(controller, agent)   MySql
 
 
