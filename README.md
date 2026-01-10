@@ -96,7 +96,8 @@ Duration : 300(sec), Data : 30,000, **Vuser : 75**, least_conn 추가<br>
 
 ### AWS(EC2, Vuser 증가 25 -> 50 -> 75)
 t2.micro <br>
-✔️Application Instance(1~3)   ✔️Ngnix   ✔️Ngrinder(controller, agent)   ✔️MySql <br>
+✔️Application Instance(1~3)   ✔️Ngnix   ✔️Ngrinder(controller, agent)   ✔️MySql
+<br>
 Duration : 300(sec), Data : 30,000, **Vuser : 25**<br>
 | 구성 환경 | TPS (평균) | 응답시간 평균 (ms) | 응답시간 최소 (ms) | 응답시간 최대 (ms) | 에러율 (%) |
 |---------|-----------|------------------|------------------|------------------|-----------|
