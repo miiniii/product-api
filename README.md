@@ -42,7 +42,8 @@ Duration : 300(sec), Data : 30,000, **Vuser : 25**<br>
 | Nginx + 인스턴스 2개 | 33.1 | 718.7 | 6.0 | 50.0 | 0.01% |
 | Nginx + 인스턴스 3개 | 31.2 | 762.66 | 20.0 | 45.5 | 0% |
 
-참고 ) Nginx + 인스턴스 2개 - least_conn X <br>
-Nginx + 인스턴스 3개 - least_conn O
+```text
+참고 )   Nginx + 인스턴스 2개   - least_conn X
+        Nginx + 인스턴스 3개   - least_conn O
 
 
