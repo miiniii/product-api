@@ -112,7 +112,10 @@ Duration : 300(sec), Data : 30,000, **Vuser : 75**, least_conn 추가<br>
 | Nginx + 인스턴스 2개 | 23.7 | 105.26 | 0 | 33.5 | 24.71 |
 | Nginx + 인스턴스 3개 | 41.0 | 130.50 | 31 | 76 | 15.14 |
 
+<img width="254" height="233" alt="image" src="https://github.com/user-attachments/assets/47b610bc-4d1d-4aeb-b676-b09bfe22d5af" />
+GC 일시정지 시간이 최대 1초가 나와 사용자 요청 처리가 지연되거나 응답 속도가 늦어져 에러율 증가로 예측
 
+<br>
 
 <br>Duration : 300(sec), Data : 30,000, **Vuser : 75**<br>
 | 구성 환경 | TPS (평균) | 응답시간 평균 (ms) | 최소 TPS (ms) | 최대 TPS (ms) | 에러율 (%) |
@@ -120,3 +123,29 @@ Duration : 300(sec), Data : 30,000, **Vuser : 75**, least_conn 추가<br>
 | 단일 인스턴스 | 12.2 | 0.35 | 0 | 37 | 49.48 |
 | Nginx + 인스턴스 2개 | 29.9 | 165.12 | 5.5 | 54 | 27.47 |
 | Nginx + 인스턴스 3개 | 41.8 | 248.20 | 17 | 68.5 | 19.93 |
+
+<br>
+
+Nginx + 인스턴스 2개
+<img width="1609" height="832" alt="image" src="https://github.com/user-attachments/assets/a4d4330b-d271-45cd-bd03-03791de4c9f6" />
+파란색 네모 -> User 75 분홍색 네모 -> User : 50 보라색 네모 -> USer : 25
+```
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 34007ms (total=49, active=48, idle=1, waiting=50)
+```
+User가 50이상일 경우 모든 DB connection 수 사용 -> 그 이상의 요청이 오는 경우 waiting -> 에러율 증가
+
+<br>
+Nginx + 인스턴스 3개
+|------------------------|
+|<img width="1588" height="805" alt="image" src="https://github.com/user-attachments/assets/b95911e5-a2b1-4c98-beff-58588e11eea0" /> <img width="1588" height="805" alt="image" src="https://github.com/user-attachments/assets/9001626d-bf8f-47d6-9eac-4b27601c7004" />|
+|- pending 수가 약 90까지 치솟음 <br> - 활성 커넥션 수가 풀 최대 사이즈(50)에 육박 -> 거의 사용 중<br> - weight를 따로 주지 않았음에도 nginx가 불균등하게 트래픽을 분배한다고 판단 -> least_conn 방식 추가|
+8080 인스턴스에 요청이 압도적으로 몰리고 있는 불균형 상황(보라색 네모)
+
+<br>
+| TPS (평균) | 응답시간 평균 (ms) | 최소 TPS (ms) | 최대 TPS (ms) | 에러율 (%) |
+|-----------|-------------------|--------------|--------------|-----------|
+| 41.8 | 248.20 | 17 | 68.5 | 19.93 |
+| 34.5 | 1051.39 | 9 | 56.5 | 15.00 |
+least_conn 추가 후 에러율 약 5% 감소
+
+
