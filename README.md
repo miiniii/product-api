@@ -193,6 +193,8 @@ Data : 16,000 | 구성 환경 | TPS (평균) | 응답시간 평균 (ms) | 응답
 | 인덱스 X | 165.7 | 280.36 | 0 | 226.0 | 0.29 |
 | 인덱스 O | 240 | 114.93 | 0.5 | 1120.0 | 1.45 |
 
+<br>
+
 | 인덱스 ❌ | 인덱스 ⭕ |
 |------------------------|------------------------|
 |<img width="791" height="150" alt="image" src="https://github.com/user-attachments/assets/505aea81-7da1-4266-9343-e6c2bf8c3b98" />|<img width="1029" height="107" alt="image" src="https://github.com/user-attachments/assets/1e78f508-59ba-42f9-84e9-b3954872961b" />|
