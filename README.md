@@ -113,6 +113,7 @@ Duration : 300(sec), Data : 30,000, **Vuser : 75**, least_conn 추가<br>
 | Nginx + 인스턴스 3개 | 41.0 | 130.50 | 31 | 76 | 15.14 |
 
 <img width="254" height="233" alt="image" src="https://github.com/user-attachments/assets/47b610bc-4d1d-4aeb-b676-b09bfe22d5af" />
+
 GC 일시정지 시간이 최대 1초가 나와 사용자 요청 처리가 지연되거나 응답 속도가 늦어져 에러율 증가로 예측
 
 <br>
@@ -203,5 +204,21 @@ Data : 16,000
 - actual time이 약 1400배 빨라짐(평균 응답 시간이 약 50% 감소) <br>
 - 인덱스 추가 후, TPS가 약 45% 증가 : DB가 풀 스캔 대신 인덱스를 통해 빠르게 결과를 찾았기 때문 <br>
 
+<br>
+
+<img width="363" height="291" alt="image" src="https://github.com/user-attachments/assets/96b44052-7c8d-44ba-9b3c-192868600134" />
+
+보라색 네모 : 인덱스 X 
+노란색 네모 : 인덱스 O
+- 인덱스가 없을 때는 최대 풀 사이즈에 근접하게 연결이되나, 인덱스가 있을 경우 대부분 즉시 처리되기때문에 거의 사용 안되는 것으로 보임
 
 <br>
+
+<img width="900" height="600" alt="image" src="https://github.com/user-attachments/assets/4919a227-318a-417f-8ee0-fe72f6f3d20b" />
+
+- 인덱스 추가로 인해 DB 응답 속도가 빨라지며, 애플리케이션이 더 많은 요청 처리 -> CPU 사용률 증가
+- CPU 사용률이 급증하면서 일부 요청이 처리 지연되어 에러율이 올라갔을거라 추측
+
+<br>
+
+
