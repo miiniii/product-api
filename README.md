@@ -281,7 +281,7 @@ if ) TPS는 높지만 재시도가 많다면 시스템에 낭비가 생기고 �
 <br>
 
 ### 비관적락
-JPA @Lock(LockModeType.PESSIMISTIC_WRITE) 사용
+JPA @Lock(LockModeType.PESSIMISTIC_WRITE) 사용 <br>
 ✔️Application Instance(3) ✔️Ngnix  ✔️Duration : 25s  ✔️Stock Quantity : 50
 <br>
 | VUsers | TPS (평균) | 응답시간 평균 (ms) | 응답시간 최소 (ms) | 응답시간 최대 (ms) | 에러율 (%) |
