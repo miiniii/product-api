@@ -167,3 +167,17 @@ Nginx + 인스턴스 3개 + least_conn 추가
 에러율은 약 5% 감소했지만 응답시간이 증가 -> 3개 인스턴스 connection이 거의 다 사용중이기 때문이라 추측 <br>
 커넥션 풀 포화 -> 대기 요청 증가 -> 평균 응답시간 증가 -> TPS 감소
 
+추가 ) Nginx + 인스턴스 3개 로그
+
+```
+2025-06-18T02:39:02.469Z ERROR 1 --- [test-repo-java] [io-8080-exec-13] o.a.c.c.C.[.[.[/].[dispatcherServlet]:
+Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed:
+java.lang.RuntimeException: java.lang.OutOfMemoryError: Java heap space] with root cause
+
+java.lang.OutOfMemoryError: Java heap space
+
+java.sql.SQLTransientConnectionException:
+HikariPool-1 - Connection is not available, request timed out after 48543ms (total=26, active=25, idle=1, waiting=0)
+```
+OOM 발생 -> max pool size 50임에도 26~33개 생성 -> 메모리가 부족해서 커넥션을 더 못 만드는 것으로 판단 <br>
+local 환경 : MacBook M1 Pro 
