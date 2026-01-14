@@ -221,4 +221,15 @@ Data : 16,000
 
 <br>
 
+## Redis Cache 적용 테스트
+<br>
 
+| 구성 환경 | TPS (평균) | 응답시간 평균 (ms) | 응답시간 최소 (ms) | 응답시간 최대 (ms) | 에러율 (%) |
+|----------|------------|-------------------|-------------------|-------------------|-----------|
+| Redis X | 8.3 | 0.44 | 0 | 25.0 | 49.48 |
+| Redis O | 241.5 | 111.08 | 0 | 994.0 | 1.55 |
+
+<img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/daa5f6af-4319-4b40-86a1-13272948a51b" />
+<img width="500" height="350" alt="image" src="https://github.com/user-attachments/assets/9e056dc6-d187-406f-9d7f-db003af99b53" />
+- (첫번째 사진) 모든 요청이 처음에 DB로 가기 때문에 CPU 사용률 일시적으로 증가
+- (두번째 사진) Redis에 캐싱된 후부터는, Redis에서 바로 조회(Redis 히트율 1)
