@@ -130,10 +130,12 @@ Nginx + 인스턴스 2개
 
 <img width="1609" height="832" alt="image" src="https://github.com/user-attachments/assets/a4d4330b-d271-45cd-bd03-03791de4c9f6" />
 파란색 네모 -> User 75 분홍색 네모 -> User : 50 보라색 네모 -> USer : 25
+
 ```
 java.sql.SQLTransientConnectionException:
 HikariPool-1 - Connection is not available, request timed out after 34007ms (total=49, active=48, idle=1, waiting=50)
 ```
+
 User가 50이상일 경우 모든 DB connection 수 사용 -> 그 이상의 요청이 오는 경우 waiting -> 에러율 증가
 
 <br>
