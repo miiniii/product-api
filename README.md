@@ -180,4 +180,25 @@ java.sql.SQLTransientConnectionException:
 HikariPool-1 - Connection is not available, request timed out after 48543ms (total=26, active=25, idle=1, waiting=0)
 ```
 OOM 발생 -> max pool size 50임에도 26~33개 생성 -> 메모리가 부족해서 커넥션을 더 못 만드는 것으로 판단 <br>
-local 환경 : MacBook M1 Pro 
+(local 환경 : MacBook M1 Pro // AWS : t2.micro) 
+
+## DB 부하 테스트(특정 상품 1개 조회)
+### AWS(EC2)
+✔️t2.micro <br>
+✔️Ngrinder(controller, agent)   ✔️MySql
+
+인덱스 적용 여부
+Data : 16,000 | 구성 환경 | TPS (평균) | 응답시간 평균 (ms) | 응답시간 최소 (ms) | 응답시간 최대 (ms) | 에러율 (%) |
+|----------|------------|-------------------|-------------------|-------------------|-----------|
+| 인덱스 X | 165.7 | 280.36 | 0 | 226.0 | 0.29 |
+| 인덱스 O | 240 | 114.93 | 0.5 | 1120.0 | 1.45 |
+
+| 인덱스 ❌ | 인덱스 ⭕ |
+|------------------------|------------------------|
+|<img width="791" height="150" alt="image" src="https://github.com/user-attachments/assets/505aea81-7da1-4266-9343-e6c2bf8c3b98" />|<img width="1029" height="107" alt="image" src="https://github.com/user-attachments/assets/1e78f508-59ba-42f9-84e9-b3954872961b" />|
+
+- actual time이 약 1400배 빨라짐(평균 응답 시간이 약 50% 감소) <br>
+- 인덱스 추가 후, TPS가 약 45% 증가 : DB가 풀 스캔 대신 인덱스를 통해 빠르게 결과를 찾았기 때문 <br>
+
+
+<br>
