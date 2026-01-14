@@ -139,7 +139,8 @@ User가 50이상일 경우 모든 DB connection 수 사용 -> 그 이상의 요�
 <br>
 Nginx + 인스턴스 3개
 
-<img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/b95911e5-a2b1-4c98-beff-58588e11eea0" /> <img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/9001626d-bf8f-47d6-9eac-4b27601c7004" />
+<img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/01b3d65b-0637-47d5-8392-5dded9b6b9c1" />
+<img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/9001626d-bf8f-47d6-9eac-4b27601c7004" />
 
 8080 인스턴스에 요청이 압도적으로 몰리고 있는 불균형 상황(보라색 네모) <br>
 - pending 수가 약 90까지 치솟음 <br>
