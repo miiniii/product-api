@@ -274,6 +274,9 @@ if ) TPS는 높지만 재시도가 많다면 시스템에 낭비가 생기고 �
 |------------------------|------------------------|
 |<img width="1364" height="823" alt="image" src="https://github.com/user-attachments/assets/7bb0923b-d87b-4d69-ba99-3f561ebf7f60" />|<img width="1326" height="818" alt="image" src="https://github.com/user-attachments/assets/ce75dee9-d33d-43f7-9d6f-b9627d587a1c" />|
 |- 특정 인스턴스에 집중적으로 몰려서 락 충돌 발생한것으로 판단 <br> - 충돌이 몰리면서 재시도 전에 실패하거나 타임 아웃 <br> - 실패가 많아 에러율 높음 | - 요청이 여러 인스턴스로 분산되어 일부만 락 충돌 <br> - 분산된 요청이 재시도 기회를 갖고 처리에 성공 <br> - 재시도 후 처리 성공 → 에러율 낮음 <br> |
+|<img width="788" height="316" alt="image" src="https://github.com/user-attachments/assets/aa822825-561a-448b-8b17-d98af8f7e668" />|<img width="799" height="307" alt="image" src="https://github.com/user-attachments/assets/0d935025-1d81-46a4-a21c-d5180f07ff23" />|
+|row_lock_waits 가파르게 증가|
+
 
 
 
