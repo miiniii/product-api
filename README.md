@@ -163,6 +163,7 @@ least_conn 추가 후 에러율 약 5% 감소
 
 Nginx + 인스턴스 3개 + least_conn 추가
 <img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/e016dea1-c70d-48be-b3a4-11d86d8f71fe" />
+
 에러율은 약 5% 감소했지만 응답시간이 증가 -> 3개 인스턴스 connection이 거의 다 사용중이기 때문이라 추측 <br>
 커넥션 풀 포화 -> 대기 요청 증가 -> 평균 응답시간 증가 -> TPS 감소
 
