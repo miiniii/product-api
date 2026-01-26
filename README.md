@@ -301,8 +301,10 @@ JPA @Lock(LockModeType.PESSIMISTIC_WRITE) 사용 <br>
 ## CI/CD 파이프라인 구축
 <img width="624" height="123" alt="image" src="https://github.com/user-attachments/assets/db23cd47-a3a1-4926-955b-f3cecc181dd5" />
 <br>
-- 수동 배포(약 5분) -> CI/CD 자동 배포(약 1분 30초)로 전환 <br>
+- 수동 배포(약 5분) -> CI/CD 자동 배포(약 1분 30초)로 전환
   - 배포 시간을 약 70% 단축
+ 
+ 
 
 
 
