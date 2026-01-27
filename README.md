@@ -347,16 +347,18 @@ retry를 넣었는데 TPS가 떨어지고 에러율 증가 이유
 - 실패 요청 증가 → 락 획득 실패 + 재시도 후 실패 (→ 예외) → 에러율 증가
 - 성공한 요청은 빠르게 종료 → 락만 획득하면 빠르게 처리 → 평균 응답시간은 낮게 나옴
 
+>### 왜 조기 종료됐는가?
+> - **낙관적 락**: 버전 충돌이 자주 발생해 `OptimisticLockingFailureException` → 에러율↑
+> - **비관적 락**: 트랜잭션 대기 중 `lock wait timeout` 또는 `Deadlock` → 에러율↑
+> - **Redis 분산 락**: `tryLock` 실패 → 재시도 끝나면 `IllegalStateException` → 에러율↑
+
+
 ## CI/CD 파이프라인 구축
 <img width="624" height="123" alt="image" src="https://github.com/user-attachments/assets/db23cd47-a3a1-4926-955b-f3cecc181dd5" />
 <br>
 - 수동 배포(약 5분) -> CI/CD 자동 배포(약 1분 30초)로 전환 <br>
   - 배포 시간을 약 70% 단축
 
->### 왜 조기 종료됐는가?
-> - **낙관적 락**: 버전 충돌이 자주 발생해 `OptimisticLockingFailureException` → 에러율↑
-> - **비관적 락**: 트랜잭션 대기 중 `lock wait timeout` 또는 `Deadlock` → 에러율↑
-> - **Redis 분산 락**: `tryLock` 실패 → 재시도 끝나면 `IllegalStateException` → 에러율↑
 
 
 
