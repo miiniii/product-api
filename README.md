@@ -354,9 +354,9 @@ retry를 넣었는데 TPS가 떨어지고 에러율 증가 이유
   - 배포 시간을 약 70% 단축
 
 >### 왜 조기 종료됐는가?
->- **낙관적 락**: 버전 충돌이 자주 발생해 `OptimisticLockingFailureException` → 에러율↑
-- **비관적 락**: 트랜잭션 대기 중 `lock wait timeout` 또는 `Deadlock` → 에러율↑
-- **Redis 분산 락**: `tryLock` 실패 → 재시도 끝나면 `IllegalStateException` → 에러율↑
+> - **낙관적 락**: 버전 충돌이 자주 발생해 `OptimisticLockingFailureException` → 에러율↑
+> - **비관적 락**: 트랜잭션 대기 중 `lock wait timeout` 또는 `Deadlock` → 에러율↑
+> - **Redis 분산 락**: `tryLock` 실패 → 재시도 끝나면 `IllegalStateException` → 에러율↑
 
 
 
