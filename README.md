@@ -296,7 +296,33 @@ JPA @Lock(LockModeType.PESSIMISTIC_WRITE) 사용 <br>
 | 50 | 343.2 | 169.5 | 247.5 | 443.5 | 0 |
 | 75 | 278.2 | 242.93 | 211.5 | 348 | 0 |
 
+- 락을 선점하여 처리 충돌을 방지 -> 에러 없는 처리의 안정성 측면에서 유효성 입증
+- 단, 낙관적 락에 비해 TPS 손실이 발생할 수 있어 성능 대비 안정성 트레이드오프를 고려하여 활용
+
+| VUsers(50) | VUsers(75)  |
+|-----------------------|---------------|
+| ![img_1.png](img_1.png)  | ![img_2.png](img_2.png)           |
+| - 락 충돌이 발생하더라도 락 점유 시간이나 처리 속도가 빨라서 wait 없이 처리됨 → 잠깐 락 충돌이 있어도 대기 상태로 안 넘어감(row_lock_waits 증가 안함) | - 요청 수가 더 많아지고, 락 점유 시간이 누적되어 <br>1. 하나의 트랙잭션이 row에 락을 걸고 있는 동안, 다른 트랙잭션이 대기 상태로 들어감 <br> 2. 이때부터 InnoDB는 내부적으로 row_lock_wait 카운트하기 시작 <br>3. 락을 가진 트랜잭션은 아직 커밋 안했고, 다른 트랜잭션은 같은 row에 접근 시도 → 대기 발생 → wait 수치 증가 |
+| - 변화는 거의 증가 없음 → DB가 락 충돌을 빠르게 해소하며 wait 없이 처리됨   | - 눈에 띄게 증가 → 락 충돌이 누적되어 wait 발생, 동시성 한계 초과 신호      |
+| ![img_3.png](img_3.png)  | ![img_4.png](img_4.png)    |
+| - active connection 수 안정적 <br>  - pending connection 수 거의 없음    | - active connection 수 빠르게 증가 <br>  - pending connection 수 4~5로 증가 <br> - 비관적 락으로 인해 커넥션이 락을 기다리며 점유 중, 새요청은 대기열에 쌓여서 pending 수치 증가 → DB connection pool 포화 위험을 나타냄   |
+| ![img_5.png](img_5.png)  | ![img_6.png](img_6.png)            |
+| - GC 영향 미미 | - GC 이슈는 크지 않지만 일부 GC 일시 정지 시간 소폭 상승 → 병목 원인은 GC가 아닌 DB락 쪽에 집중됨         |
+
+
+> - **비관적 락은 안정적이지만 확장성은 떨어짐** <br>
+      - 동시 요청 수가 많아질수록 락 경쟁으로 인한 병목이 빠르게 증가 
+> - **락 충돌 → 커넥션 점유 → 대기열 증가 → 시스템 전체 지연** <br>
+    - application-level bottleneck → DB-level bottleneck으로 전이
+
+
 ### 분산락
+✔️Application Instance(3) ✔️Ngnix  ✔️Duration : 25s  ✔️Stock Quantity : 50<br>
+
+| Vusers | TPS (평균) | 응답시간 평균 (ms) | 응답시간 최소 (ms) | 응답시간 최대 (ms) | 에러율 (%) |
+|--------|------------|--------------------|--------------------|--------------------|------------|
+| 50     | 111.0      | 217.69             | 71                 | 123.5              | 16.85%     |
+| 75     | 114.1      | 265.66             | 69                 | 128                | 24.13%     |
 
 ## CI/CD 파이프라인 구축
 <img width="624" height="123" alt="image" src="https://github.com/user-attachments/assets/db23cd47-a3a1-4926-955b-f3cecc181dd5" />
