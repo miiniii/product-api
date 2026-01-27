@@ -301,15 +301,12 @@ JPA @Lock(LockModeType.PESSIMISTIC_WRITE) 사용 <br>
 
 | VUsers(50) | VUsers(75)  |
 |-----------------------|---------------|
-| <img width="780" height="303" alt="image" src="https://github.com/user-attachments/assets/2294622d-e3cd-4e02-93d4-2beb472ac5d4" />
- | <img width="780" height="303" alt="image" src="https://github.com/user-attachments/assets/bb50e61a-a76f-4a11-9bcc-ce492623985c" />|
+| <img width="780" height="303" alt="image" src="https://github.com/user-attachments/assets/2294622d-e3cd-4e02-93d4-2beb472ac5d4" />| <img width="780" height="303" alt="image" src="https://github.com/user-attachments/assets/bb50e61a-a76f-4a11-9bcc-ce492623985c" />|
 | - 락 충돌이 발생하더라도 락 점유 시간이나 처리 속도가 빨라서 wait 없이 처리됨 → 잠깐 락 충돌이 있어도 대기 상태로 안 넘어감(row_lock_waits 증가 안함) | - 요청 수가 더 많아지고, 락 점유 시간이 누적되어 <br>1. 하나의 트랙잭션이 row에 락을 걸고 있는 동안, 다른 트랙잭션이 대기 상태로 들어감 <br> 2. 이때부터 InnoDB는 내부적으로 row_lock_wait 카운트하기 시작 <br>3. 락을 가진 트랜잭션은 아직 커밋 안했고, 다른 트랜잭션은 같은 row에 접근 시도 → 대기 발생 → wait 수치 증가 |
 | - 변화는 거의 증가 없음 → DB가 락 충돌을 빠르게 해소하며 wait 없이 처리됨   | - 눈에 띄게 증가 → 락 충돌이 누적되어 wait 발생, 동시성 한계 초과 신호      |
-| <img width="804" height="609" alt="image" src="https://github.com/user-attachments/assets/6db9a727-bedc-46e4-b4a6-26648898219f" />
- | <img width="804" height="609" alt="image" src="https://github.com/user-attachments/assets/4e979d62-9499-47cf-a0c7-7323a218ae1f" />|
+| <img width="804" height="609" alt="image" src="https://github.com/user-attachments/assets/6db9a727-bedc-46e4-b4a6-26648898219f" />| <img width="804" height="609" alt="image" src="https://github.com/user-attachments/assets/4e979d62-9499-47cf-a0c7-7323a218ae1f" />|
 | - active connection 수 안정적 <br>  - pending connection 수 거의 없음    | - active connection 수 빠르게 증가 <br>  - pending connection 수 4~5로 증가 <br> - 비관적 락으로 인해 커넥션이 락을 기다리며 점유 중, 새요청은 대기열에 쌓여서 pending 수치 증가 → DB connection pool 포화 위험을 나타냄   |
-| <img width="799" height="304" alt="image" src="https://github.com/user-attachments/assets/35bd1fd9-72b8-4c8e-99af-09e0c9743e73" />
-| <img width="798" height="306" alt="image" src="https://github.com/user-attachments/assets/3320a29f-96ab-497f-9d0c-3aa7caf6414e" /> |
+| <img width="799" height="304" alt="image" src="https://github.com/user-attachments/assets/35bd1fd9-72b8-4c8e-99af-09e0c9743e73" />| <img width="798" height="306" alt="image" src="https://github.com/user-attachments/assets/3320a29f-96ab-497f-9d0c-3aa7caf6414e" /> |
 | - GC 영향 미미 | - GC 이슈는 크지 않지만 일부 GC 일시 정지 시간 소폭 상승 → 병목 원인은 GC가 아닌 DB락 쪽에 집중됨         |
 
 
