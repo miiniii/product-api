@@ -5,7 +5,8 @@
 <br>
 
 # Architecture
-<img width="798" height="469" alt="image" src="https://github.com/user-attachments/assets/df38bdf1-39bc-4c47-b29b-6de21e50224c" />
+<img width="871" height="469" alt="image" src="https://github.com/user-attachments/assets/b20bf43f-225a-4333-ab81-850e587ed4a0" />
+
 
 ## 주요기능
 - 상품 등록(Create)
