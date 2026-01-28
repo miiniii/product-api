@@ -5,7 +5,8 @@
 <br>
 
 # Architecture
-<img width="871" height="469" alt="image" src="https://github.com/user-attachments/assets/b20bf43f-225a-4333-ab81-850e587ed4a0" />
+<img width="871" height="544" alt="image" src="https://github.com/user-attachments/assets/f26452dd-dfdb-4d93-a876-88ddc171a3d4" />
+
 
 
 ## 주요기능
