@@ -356,7 +356,10 @@ retry를 넣었는데 TPS가 떨어지고 에러율 증가 이유
 ## 선착순 이벤트 메일 발송
 <img width="318" height="145" alt="image" src="https://github.com/user-attachments/assets/4b4e57e7-adf3-4a9a-8709-ace2a67f8788" />
 
-
+## Slack 알림 시스템 구축
+>사진넣기
+- 재고 부족으로 인한 요청 실패 시 상세 정보 기반 Slack 알림으로 실시간 예외 감지
+- API 호출 수 임계치 초과 시(예:10건) Slack 알림을 통한 감지
 
 ## CI/CD 파이프라인 구축
 <img width="624" height="123" alt="image" src="https://github.com/user-attachments/assets/db23cd47-a3a1-4926-955b-f3cecc181dd5" />
