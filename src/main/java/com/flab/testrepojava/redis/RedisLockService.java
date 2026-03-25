@@ -29,8 +29,7 @@ public class RedisLockService {
         RLock lock = redissonClient.getLock(key);
 
         int attempts = 0;
-        boolean acquired = false;
-        long start = System.currentTimeMillis();
+        boolean acquired;
 
         while (attempts < MAX_RETRIES) {
             try {
@@ -52,24 +51,6 @@ public class RedisLockService {
 
         metricsCollector.incrementFail(key);
         throw new IllegalStateException("Redis 락 획득 실패 (재시도 " + MAX_RETRIES + "회)");
-    }
-
-    public void releaseLock(RLock lock, String key, long startTimeMillis) {
-        try {
-            if (lock.isHeldByCurrentThread()) {
-                lock.unlock();
-                long duration = System.currentTimeMillis() - startTimeMillis;
-                metricsCollector.recordLockDuration(key, duration);
-            }
-        } catch (Exception e) {
-            log.error("[RedisLock] 락 해제 중 예외 발생 - key: {}", key, e);
-        }
-    }
-
-    // 선착순 이벤트에서 유저 중복 참여를 막음
-    public boolean tryAcquire(Long productId, Long userId) {
-        String key = "event:" + productId + ":user:" + userId;
-        return redisTemplate.opsForValue().setIfAbsent(key, "1", 5, TimeUnit.MINUTES);
     }
 
     // 이미 참여했는지 확인

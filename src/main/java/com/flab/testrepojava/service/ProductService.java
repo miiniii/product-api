@@ -12,7 +12,6 @@ import com.flab.testrepojava.slack.SlackNotifier;
 import org.springframework.cache.annotation.Cacheable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Recover;
@@ -22,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,8 +33,6 @@ public class ProductService implements ProductServiceImp {
     private final ProductMapper productMapper;
     private final SlackNotifier slackNotifier;
     private final RetryMetricsService retryMetricsService;
-
-    private static final AtomicBoolean stopLogging = new AtomicBoolean(false);
 
     @Override
     public ProductResponse save(ProductRequest request) {
@@ -106,19 +102,13 @@ public class ProductService implements ProductServiceImp {
                 .collect(Collectors.toList());
     }
 
-    @CacheEvict(value = "productSearch", key = "p0")
-    public void evictSearchCache(String name) {
-        log.info(">> 캐시 삭제: {}", name);
-    }
-
     @Retryable(
             include = {ObjectOptimisticLockingFailureException.class},
-            maxAttempts = 3,
             backoff = @Backoff(delay = 10)
     )
     @Transactional
     public void decreaseQuantity(Long productId, int amount) {
-        log.info("▶️ 재고 감소 시작 - productId: {}, amount: {}", productId, amount);
+        log.info("재고 감소 시작 - productId: {}, amount: {}", productId, amount);
 
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
@@ -126,20 +116,20 @@ public class ProductService implements ProductServiceImp {
         int before = product.getQuantity();
         product.setQuantity(before - amount);
 
-        log.info("⏳ 저장 전 수량 감소 - 기존: {}, 차감 후: {}", before, product.getQuantity());
+        log.info("저장 전 수량 감소 - 기존: {}, 차감 후: {}", before, product.getQuantity());
 
         try {
-            productRepository.save(product); // ⛔️ 이 시점에서 버전 충돌 발생 가능
+            productRepository.save(product); // 이 시점에서 버전 충돌 발생 가능
         } catch (ObjectOptimisticLockingFailureException e) {
             // 충돌 감지
             retryMetricsService.countRetryAttempt(e);
             log.error("Optimistic lock 실패: {}", e.getMessage());
         }
 
-        // ⛔️ 저장 후 재고 부족이면 예외
+        // 저장 후 재고 부족이면 예외
         if (product.getQuantity() < 0) {
             String message = String.format(
-                    "❌ 재고 부족 - 상품 ID: %d, 요청 수량: %d, 감소 후 수량: %d",
+                    "재고 부족 - 상품 ID: %d, 요청 수량: %d, 감소 후 수량: %d",
                     productId, amount, product.getQuantity()
             );
             log.warn("{}", message);
@@ -147,17 +137,17 @@ public class ProductService implements ProductServiceImp {
             throw new OutOfStockException("재고가 부족합니다.");
         }
 
-        log.info("✅ 재고 감소 완료 - productId: {}, 최종 수량: {}", productId, product.getQuantity());
+        log.info("재고 감소 완료 - productId: {}, 최종 수량: {}", productId, product.getQuantity());
     }
 
-    // 🔁 낙관적 락 재시도 끝에도 실패할 경우 호출
+    // 낙관적 락 재시도 끝에도 실패할 경우 호출
     @Recover
     public void recover(ObjectOptimisticLockingFailureException e, Long productId, int amount) {
         String message = String.format(
-                "🔁 낙관적 락 재시도 실패 - 상품 ID: %d, 요청 수량: %d, 에러: %s",
+                "낙관적 락 재시도 실패 - 상품 ID: %d, 요청 수량: %d, 에러: %s",
                 productId, amount, e.getMessage()
         );
-        log.error("🛑 Recover 실행됨 - {}", message);
+        log.error("Recover 실행됨 - {}", message);
         slackNotifier.queueMessage(message);
 
     }
@@ -165,7 +155,7 @@ public class ProductService implements ProductServiceImp {
     // 비관적 락 기반
     @Transactional
     public void decreaseQuantityWithPessimisticLock(Long productId, int amount) {
-        log.info("▶️ [PESSIMISTIC] 재고 감소 시작 - productId: {}, amount: {}", productId, amount);
+        log.info("[PESSIMISTIC] 재고 감소 시작 - productId: {}, amount: {}", productId, amount);
 
         Product product = productRepository.findByIdForUpdate(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
@@ -174,7 +164,7 @@ public class ProductService implements ProductServiceImp {
         int after = before - amount;
 
         if (after < 0) {
-            String message = String.format("❌ [PESSIMISTIC] 재고 부족 - 상품 ID: %d, 요청: %d, 현재: %d", productId, amount, before);
+            String message = String.format("[PESSIMISTIC] 재고 부족 - 상품 ID: %d, 요청: %d, 현재: %d", productId, amount, before);
             log.warn(message);
             slackNotifier.queueMessage(message);
             throw new OutOfStockException("재고가 부족합니다.");
@@ -182,7 +172,7 @@ public class ProductService implements ProductServiceImp {
 
         product.setQuantity(after);
 
-        log.info("✅ [PESSIMISTIC] 재고 차감 완료 - 기존: {}, 최종: {}", before, after);
+        log.info("[PESSIMISTIC] 재고 차감 완료 - 기존: {}, 최종: {}", before, after);
     }
 
     // Redisson 분산락
@@ -194,14 +184,14 @@ public class ProductService implements ProductServiceImp {
                     .orElseThrow(() -> new IllegalArgumentException("Product not found"));
 
             if (product.getQuantity() < amount) {
-                slackNotifier.queueMessage("❌ Redis 재고 부족 - ID: " + productId);
+                slackNotifier.queueMessage("Redis 재고 부족 - ID: " + productId);
                 throw new OutOfStockException("재고 부족");
             }
 
             product.setQuantity(product.getQuantity() - amount);
             productRepository.save(product);
 
-            log.info("🔐 Redis 락으로 재고 차감 완료 - id: {}, 남은 재고: {}", productId, product.getQuantity());
+            log.info("Redis 락으로 재고 차감 완료 - id: {}, 남은 재고: {}", productId, product.getQuantity());
             return null;
         });
     }

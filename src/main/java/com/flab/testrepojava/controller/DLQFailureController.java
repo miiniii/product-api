@@ -1,6 +1,5 @@
 package com.flab.testrepojava.controller;
 
-import com.flab.testrepojava.domain.DeadLetterLog;
 import com.flab.testrepojava.dto.ApiResponse;
 import com.flab.testrepojava.dto.DeadLetterLogResponse;
 import com.flab.testrepojava.service.DLQFailureService;
@@ -60,6 +59,4 @@ public class DLQFailureController {
         }
     }
 
-
-    // (선택) 실패 메시지 전체 조회 API는 여기에 추가 가능
 }

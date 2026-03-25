@@ -10,11 +10,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Component
 @Slf4j
@@ -51,12 +49,12 @@ public class SlackNotifier {
                 .bodyValue(Map.of("text", combinedMessage.toString()))
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, response -> {
-                    log.warn("🚫 Slack 전송 실패 - 상태 코드: {}", response.statusCode().value());
+                    log.warn("Slack 전송 실패 - 상태 코드: {}", response.statusCode().value());
                     return Mono.empty();
                 })
                 .bodyToMono(Void.class)
-                .doOnSuccess(unused -> log.info("✅ Slack 메시지 전송 성공"))
-                .doOnError(error -> log.error("🔥 Slack 전송 중 예외 발생", error))
+                .doOnSuccess(unused -> log.info("Slack 메시지 전송 성공"))
+                .doOnError(error -> log.error("Slack 전송 중 예외 발생", error))
                 .subscribe();
     }
 }

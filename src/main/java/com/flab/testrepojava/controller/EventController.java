@@ -1,17 +1,14 @@
 package com.flab.testrepojava.controller;
 
-import com.flab.testrepojava.domain.DeadLetterLog;
 import com.flab.testrepojava.dto.ApiResponse;
 import com.flab.testrepojava.dto.StockParticipateRequest;
 import com.flab.testrepojava.dto.StockParticipateResponse;
 import com.flab.testrepojava.kafka.KafkaProducerService;
 import com.flab.testrepojava.dto.StockDecreaseEvent;
 import com.flab.testrepojava.redis.RedisLockService;
-import com.flab.testrepojava.service.KafkaDLQService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -24,8 +21,6 @@ public class EventController {
 
     private final KafkaProducerService kafkaProducerService;
     private final RedisLockService redisLockService;
-    private final KafkaTemplate<String, String> kafkaTemplate;
-    private final KafkaDLQService kafkaDLQService;
 
     @PostMapping("/participate")
     public ResponseEntity<ApiResponse<StockParticipateResponse>> participate(@RequestBody StockParticipateRequest request) {

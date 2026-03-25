@@ -1,6 +1,5 @@
 package com.flab.testrepojava.domain;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 

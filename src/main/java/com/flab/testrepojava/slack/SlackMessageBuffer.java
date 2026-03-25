@@ -18,12 +18,6 @@ public class SlackMessageBuffer {
         buffer.add(message);
     }
 
-    public List<String> drainMessages() {
-        List<String> drained = List.copyOf(buffer);
-        buffer.clear();
-        return drained;
-    }
-
     public boolean isEmpty() {
         return buffer.isEmpty();
     }

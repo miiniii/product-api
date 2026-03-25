@@ -3,7 +3,6 @@ package com.flab.testrepojava.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.testrepojava.domain.DeadLetterLog;
 import com.flab.testrepojava.domain.DeadLetterSuccessLog;
-import com.flab.testrepojava.domain.Member;
 import com.flab.testrepojava.dto.StockDecreaseEvent;
 import com.flab.testrepojava.metrics.DLQMetricsService;
 import com.flab.testrepojava.repository.DeadLetterLogRepository;
