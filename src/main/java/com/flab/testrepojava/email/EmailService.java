@@ -28,9 +28,9 @@ public class EmailService {
 
         try {
             mailSender.send(message);
-            log.info("✅ 이메일 전송 완료 → {}", to);
+            log.info("이메일 전송 완료 → {}", to);
         } catch (Exception e) {
-            log.error("❌ 이메일 전송 실패", e);
+            log.error("이메일 전송 실패", e);
         }
     }
 }

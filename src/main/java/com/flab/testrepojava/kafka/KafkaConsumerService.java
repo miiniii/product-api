@@ -23,7 +23,6 @@ import java.time.LocalDateTime;
 
 import static com.flab.testrepojava.exception.DLQExceptionFilter.isBusinessException;
 
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -146,7 +145,7 @@ public class KafkaConsumerService {
 
 
 
-    private void processRetry(StockDecreaseEvent event) throws Exception {
+    private void processRetry(StockDecreaseEvent event) {
         validateEvent(event);
 
         Member member = memberService.findByEmailOrThrow(event.getMemberEmail());

@@ -1,6 +1,5 @@
 package com.flab.testrepojava.kafka;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.testrepojava.dto.StockDecreaseEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,7 @@ public class KafkaOffsetTestConsumer {
     private static final Set<String> COMMIT_EVENTS = Set.of("test-1", "test-2", "test-3");
 
     @KafkaListener(topics = "stock-decrease-test", groupId = "offset-test-group")
-    public void consumeForOffsetTest(ConsumerRecord<String, String> record, Acknowledgment ack) throws InterruptedException {
+    public void consumeForOffsetTest(ConsumerRecord<String, String> record, Acknowledgment ack) {
         try {
             // 1. 빈 메시지 방어
             if (record.value() == null || record.value().trim().isEmpty()) {
