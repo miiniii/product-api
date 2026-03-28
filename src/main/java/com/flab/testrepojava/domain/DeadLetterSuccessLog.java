@@ -3,6 +3,7 @@ package com.flab.testrepojava.domain;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
+@Getter
 public class DeadLetterSuccessLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
