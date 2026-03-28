@@ -30,7 +30,7 @@ public class RetryMetricsListener implements RetryListener {
     public <T, E extends Throwable> void onError(RetryContext context, RetryCallback<T, E> callback, Throwable throwable) {
         // 매 retry attempt 마다 호출됨
         String exceptionName = throwable.getClass().getSimpleName();
-        log.warn("🔁 Retry Attempt - count: {}, exception: {}", context.getRetryCount(), exceptionName);
+        log.warn("Retry Attempt - count: {}, exception: {}", context.getRetryCount(), exceptionName);
         meterRegistry.counter("retry_attempts_total", "exception", exceptionName).increment();
     }
 }
