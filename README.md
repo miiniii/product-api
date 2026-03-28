@@ -370,10 +370,10 @@ JPA @Lock(LockModeType.PESSIMISTIC_WRITE) 사용 <br>
 
 ## 단위 테스트 작성 및 JaCoCo 커버리지 개선
 #### 초기
-![img_1.png](img_1.png)
+<img width="1010" height="220" alt="image" src="https://github.com/user-attachments/assets/07c7dc7a-d171-4d61-9b95-4f777c97516b" />
 
 #### 개선(목표 80%)
-![img_2.png](img_2.png)
+<img width="1022" height="214" alt="image" src="https://github.com/user-attachments/assets/5e600293-bfaf-4d0e-b56c-3fdad9e4468c" />
 
 #### 결과
 
